@@ -5,4 +5,4 @@ class Customer:
         self.id = id
         self.path = []
         self.TM ={}
-
+	self.pattern=[]
