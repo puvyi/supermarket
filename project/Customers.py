@@ -1,5 +1,5 @@
 
-import random
+import numpy as np
 from transition import TRANSITION_MATRIX
 
 class Customer:
@@ -7,7 +7,7 @@ class Customer:
     a single customer that moves through the supermarket
     in a MCMC simulation
     """
-    def __init__(self, name, location, transition_probs=TRANSITION_MATRIX, budget=100):
+    def __init__(self, name, location='entry', transition_probs=TRANSITION_MATRIX, budget=100):
         self.name = name
         self.location = location
         self.budget = budget
@@ -24,7 +24,7 @@ class Customer:
         Returns nothing.
         '''
         if self.active:
-            self.location = random.choice(['spices', 'drinks', 'fruit', 'dairy', 'checkout'], p=self.TM[self.location])
+            self.location =np.random.choice(['spices', 'drinks', 'fruit', 'dairy', 'checkout'], p =self.TM[self.location])
             self.path.append(self.location)
             if (self.location == 'checkout'):
                  self.active=False
@@ -42,4 +42,4 @@ if __name__=='__main__':
    
     customer_list = [c1,c2,c3]
     for customer in customer_list:
-        print(customer)
+        print(customer,customer.path)
