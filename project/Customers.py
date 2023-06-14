@@ -39,12 +39,7 @@ if __name__=='__main__':
     c2 = Customer('Santiago', location='drinks')
     c3 = Customer('Puviy', location='dairy')
     
+   
     customer_list = [c1,c2,c3]
-    c1.__repr__()
-    c1.move()
-
     for customer in customer_list:
-        customer.__repr__()
-        customer.__repr__()
-        customer.__repr__()
-
+        print(customer)
