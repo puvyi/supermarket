@@ -30,19 +30,21 @@ class Customer:
                  self.active=False
                  print(f'Customer {self.name} is checking out')
 
+    def printer(self):
+        self.move()
+
 
 if __name__=='__main__':
     c1 = Customer('Pradnya', location='spices')
-    '''c2 = Customer('Santiago', location='drinks')
-    c3 = Customer('Puviy', location='dairy')'''
+    c2 = Customer('Santiago', location='drinks')
+    c3 = Customer('Puviy', location='dairy')
     
-    #customer_list = [c1,c2,c3]
+    customer_list = [c1,c2,c3]
     c1.__repr__()
     c1.move()
 
-    '''for customer in customer_list:
+    for customer in customer_list:
         customer.__repr__()
         customer.__repr__()
-        customer.__repr__()'''
-    
+        customer.__repr__()
 
