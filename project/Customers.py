@@ -24,11 +24,16 @@ class Customer:
         Propagates the customer to the next location.
         Returns nothing.
         '''
+<<<<<<< HEAD
         #if (self.active and self.location is 'entry'):
             #self.location = np.random.choice(['spices', 'drinks', 'fruit', 'dairy'], p=self.TM[self.location][0:4],replace=True)
             #self.path.append(self.location)
         if (self.active):# and self.location != 'entry'):
             self.location = np.random.choice(['spices', 'drinks', 'fruit', 'dairy', 'checkout'], p=self.TM[self.location],replace=True)
+=======
+        if self.active:
+            self.location =np.random.choice(['spices', 'drinks', 'fruit', 'dairy', 'checkout'], p =self.TM[self.location])
+>>>>>>> 86b2571ef06c8a700de1201f16ca8e55257a31fe
             self.path.append(self.location)
             self.total_time+=1
             if (self.location == 'checkout'):
@@ -41,6 +46,7 @@ if __name__=='__main__':
     c2 = Customer('Santiago')
     #c3 = Customer('Puviy')
     
+<<<<<<< HEAD
     customer_list = [c1,c2]
     for customer in customer_list:
         print(customer)
@@ -54,3 +60,9 @@ if __name__=='__main__':
     print(c2.path)
     print(f'{c1.name} spent {c1.total_time}.')
     print(f'{c2.name} spent {c2.total_time}.')
+=======
+   
+    customer_list = [c1,c2,c3]
+    for customer in customer_list:
+        print(customer,customer.path)
+>>>>>>> 86b2571ef06c8a700de1201f16ca8e55257a31fe
