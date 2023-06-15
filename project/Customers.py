@@ -1,5 +1,5 @@
 
-import random
+import numpy as np
 from transition import TRANSITION_MATRIX
 
 class Customer:
@@ -7,44 +7,50 @@ class Customer:
     a single customer that moves through the supermarket
     in a MCMC simulation
     """
-    def __init__(self, name, location, transition_probs=TRANSITION_MATRIX, budget=100):
+    def __init__(self, name, location='entry', transition_probs=TRANSITION_MATRIX, budget=100):
         self.name = name
         self.location = location
         self.budget = budget
         self.path = [location]
         self.TM = transition_probs
         self.active =True
+        self.total_time = 0
 
     def __repr__(self):
-        return f'<Customer {self.name} in {self.location}>'
+        return f'<Customer {self.name} is in {self.location}>'
     
     def move(self):
         '''
         Propagates the customer to the next location.
         Returns nothing.
         '''
-        if self.active:
-            self.location = random.choice(['spices', 'drinks', 'fruit', 'dairy', 'checkout'], p=self.TM[self.location])
+        #if (self.active and self.location is 'entry'):
+            #self.location = np.random.choice(['spices', 'drinks', 'fruit', 'dairy'], p=self.TM[self.location][0:4],replace=True)
+            #self.path.append(self.location)
+        if (self.active):# and self.location != 'entry'):
+            self.location = np.random.choice(['spices', 'drinks', 'fruit', 'dairy', 'checkout'], p=self.TM[self.location],replace=True)
             self.path.append(self.location)
+            self.total_time+=1
             if (self.location == 'checkout'):
                  self.active=False
                  print(f'Customer {self.name} is checking out')
 
-    def printer(self):
-        self.move()
-
 
 if __name__=='__main__':
-    c1 = Customer('Pradnya', location='spices')
-    c2 = Customer('Santiago', location='drinks')
-    c3 = Customer('Puviy', location='dairy')
+    c1 = Customer('Pradnya')
+    c2 = Customer('Santiago')
+    #c3 = Customer('Puviy')
     
-    customer_list = [c1,c2,c3]
-    c1.__repr__()
-    c1.move()
-
+    customer_list = [c1,c2]
     for customer in customer_list:
-        customer.__repr__()
-        customer.__repr__()
-        customer.__repr__()
-
+        print(customer)
+        customer.move()
+        print(customer)
+        customer.move()
+        print(customer)
+        customer.move()
+        print(customer)
+    print(c1.path)
+    print(c2.path)
+    print(f'{c1.name} spent {c1.total_time}.')
+    print(f'{c2.name} spent {c2.total_time}.')
