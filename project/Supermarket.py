@@ -41,31 +41,36 @@ class Supermarket:
         '''
         s.add_customers(no_of_customers)
         print('-----The list of customers added-----')
-        s.customer_list()
+        s.print_customer_list()
         print('\n')
         print('-----SIMULATION BEGIN-----')
         while self.timesteps>0:
             s.next_timestep()
             s.timesteps-=1
+            
         print('----- SIMULATION END -----')
         print(self)
 
     def move_all(self):
         for customer in self.customer_list:
             customer.move()
+            print(customer)
 
     def next_timestep(self):
         self.time+=1
         self.move_all()
 
-    def customer_list(self):
+    def print_path(self):
+       for customer in self.customer_list:
+           print(customer.path)
+           print(f'{customer.name} is spending {customer.total_time} min')
+
+    def print_customer_list(self):
         for customer in self.customer_list:
             print(customer)
-
-
-
 
 
 if __name__=='__main__':
     s=Supermarket()
     s.simulate(5)
+    s.print_path()

@@ -65,7 +65,8 @@ if __name__=='__main__':
         print(customer)
     print(c1.path)
     print(c2.path)
+    print(c3.path)
     print(f'{c1.name} spent {c1.total_time} minutes in the supermarket.')
     print(f'{c2.name} spent {c2.total_time} minutes in the supermarket.')
-    print(f'{c3.name} spent {c2.total_time} minutes in the supermarket.')
+    print(f'{c3.name} spent {c3.total_time} minutes in the supermarket.')
 
