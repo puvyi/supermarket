@@ -30,7 +30,7 @@ class Customer:
         '''
         __repr__ Enables the use the print(Customer) method to print the class in this format
         '''
-        return f'<Customer {self.name} is in {self.location}>'
+        return f'{self.name}'
     
     def move(self):
         '''

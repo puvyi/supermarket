@@ -2,7 +2,6 @@ from Customers import Customer
 import numpy as np
 from faker import Faker
 import pandas as pd
-import Customerlist
 
 class Supermarket:
     '''
@@ -49,11 +48,13 @@ class Supermarket:
         #print('\n')
         #print('-----SIMULATION BEGIN-----')
         for i in range(1, self.timesteps+1):
-            print('step '+str(i))
+            print('step '+str(i)) 
             self.update_customer_list()
             s.next_timestep()
             #s.timesteps-=1
             self.write_timestep()
+            s.next_timestep()
+            s.timesteps-=1
 
         #print('----- SIMULATION END -----')
         #print(self)
@@ -67,6 +68,25 @@ class Supermarket:
         self.time+=1
         #self.print_customer_path()
         self.move_all()
+
+
+    def update_customer_list(self):
+        checkout_no=0
+        for customer in self.customer_list:
+            if customer.location=='checkout':
+                checkout_no+=1
+            
+            if not customer.active:
+                self.customer_list.remove(customer)
+        self.activecustomers=len(self.customer_list) 
+        self.path_table['checkout'] =checkout_no          
+
+
+
+    def print_path(self):
+       for customer in self.customer_list:
+           print(customer.path)
+           print(f'{customer.name} is spending {customer.total_time} min')
 
     def write_timestep(self):
         checkout_no=fruit_no=dairy_no=spice_no=drink_no=0
@@ -108,6 +128,7 @@ class Supermarket:
         for customer in self.customer_list:
             print(f'{customer.name} is spending {customer.total_time} minutes\n', customer.path)
 
+
     def print_customer_list(self):
         for customer in self.customer_list:
             print(customer.name)
@@ -125,11 +146,5 @@ class Supermarket:
 if __name__=='__main__':
     s=Supermarket()
     s.simulate(0) #5
-        #s.print_path()
-    '''s=Supermarket()
-    s.simulate(5)
-    print('\nStill in the market\n-------------------')
-    s.print_customer_list()
-    s.write_timestep()'''
 
-
+    
