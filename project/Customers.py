@@ -30,7 +30,7 @@ class Customer:
         '''
         __repr__ Enables the use the print(Customer) method to print the class in this format
         '''
-        return f'<Customer {self.name} is in {self.location}>'
+        return f'{self.name}'
     
     def move(self):
         '''
@@ -46,7 +46,7 @@ class Customer:
             self.total_time+=1
             if (self.location == 'checkout'):
                  self.active=False
-                 print(f'Customer {self.name} is checking out')
+                 #print(f'Customer {self.name} is checking out')
 
 
 if __name__=='__main__':
