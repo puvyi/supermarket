@@ -2,6 +2,7 @@ from Customers import Customer
 import numpy as np
 from faker import Faker
 import pandas as pd
+import Customerlist
 
 class Supermarket:
     '''
@@ -47,11 +48,12 @@ class Supermarket:
         s.print_customer_list()
         #print('\n')
         #print('-----SIMULATION BEGIN-----')
-        while self.timesteps>0:
+        for i in range(1, self.timesteps+1):
+            print('step '+str(i))
             self.update_customer_list()
-            self.write_timestep()
             s.next_timestep()
-            s.timesteps-=1
+            #s.timesteps-=1
+            self.write_timestep()
 
         #print('----- SIMULATION END -----')
         #print(self)
@@ -67,9 +69,26 @@ class Supermarket:
         self.move_all()
 
     def write_timestep(self):
+        checkout_no=fruit_no=dairy_no=spice_no=drink_no=0
+        for customer in self.customer_list:
+            if customer.location=="fruit":
+                fruit_no +=1
+            if customer.location=="dairy":
+                dairy_no +=1
+            if customer.location=="spices":
+                spice_no +=1
+            if customer.location=="drinks":
+                drink_no +=1
+            if customer.location=="checkout":
+                checkout_no+=1
         new_row ={
             'timesteps':self.timesteps,
-            'numberofcustomers':self.activecustomers
+            'numberofcustomers':self.activecustomers,
+            'fruit':fruit_no,
+            'dairy':dairy_no,
+            'spices':spice_no,
+            'drink':drink_no,
+            'checkout':checkout_no
         }
         tempdf =pd.DataFrame(new_row, index=['index'])
         #self.path_table.loc(tempSeries)
@@ -82,6 +101,8 @@ class Supermarket:
             if not customer.active:
                 self.customer_list.remove(customer)
         self.activecustomers = len(self.customer_list)
+        data = self.get_data()
+        self.add_customers(data[self.timesteps])
 
     def print_customer_path(self):
         for customer in self.customer_list:
@@ -91,20 +112,24 @@ class Supermarket:
         for customer in self.customer_list:
             print(customer.name)
 
+    def get_data(self):
+        customer_per_minute = pd.read_csv('customer_per_minute.csv', index_col=0)
+        customer_per_minute = customer_per_minute.astype(int)
+        data =[]
+        for value in customer_per_minute['customer_no_count']:
+            data.append(value)
+        return data
+    
+    
 
-
-
-if __name__==‘__main__‘:
-    customer_per_minute = pd.read_csv(‘customer_per_minute.csv’, index_col=0)
-    customer_per_minute = customer_per_minute.astype(int)
-    for index in customer_per_minute:
-        timestep_customers = customer_per_minute[‘customer_no_count’]
-        s=Supermarket()
-        s.simulate(timestep_customers) #5
-        s.print_path()
+if __name__=='__main__':
     s=Supermarket()
+    s.simulate(0) #5
+        #s.print_path()
+    '''s=Supermarket()
     s.simulate(5)
     print('\nStill in the market\n-------------------')
     s.print_customer_list()
-    s.write_timestep()
-    
+    s.write_timestep()'''
+
+

@@ -37,16 +37,14 @@ class Customer:
         Propagates the customer to the next location.
         Returns nothing.
         '''
-        #if (self.active and self.location is 'entry'):
-            #self.location = np.random.choice(['spices', 'drinks', 'fruit', 'dairy'], p=self.TM[self.location][0:4],replace=True)
-            #self.path.append(self.location)
-        if (self.active):# and self.location != 'entry'):
+
+        if (self.active):
             self.location = np.random.choice(['entry', 'dairy', 'drinks', 'fruit', 'spices', 'checkout'], p=self.TM[self.location],replace=False)
             self.path.append(self.location)
             self.total_time+=1
             if (self.location == 'checkout'):
                  self.active=False
-                 #print(f'Customer {self.name} is checking out')
+                 print(f'Customer {self.name} is checking out')
 
 
 if __name__=='__main__':
@@ -63,17 +61,9 @@ if __name__=='__main__':
         print(customer)
         customer.move()
         print(customer)
-        customer.move()
-        print(customer)
-        customer.move()
-        print(customer)
-        customer.move()
-        print(customer)
     print(c1.path)
     print(c2.path)
-    print(c3.path)
     print(f'{c1.name} spent {c1.total_time} minutes in the supermarket.')
     print(f'{c2.name} spent {c2.total_time} minutes in the supermarket.')
-    print(f'{c3.name} spent {c3.total_time} minutes in the supermarket.')
-    print(c1.active, c2.active, c3.active)
+    print(f'{c3.name} spent {c2.total_time} minutes in the supermarket.')
 
