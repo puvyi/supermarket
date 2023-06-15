@@ -46,7 +46,7 @@ class Customer:
             self.total_time+=1
             if (self.location == 'checkout'):
                  self.active=False
-                 print(f'Customer {self.name} is checking out')
+                 #print(f'Customer {self.name} is checking out')
 
 
 if __name__=='__main__':
@@ -63,9 +63,17 @@ if __name__=='__main__':
         print(customer)
         customer.move()
         print(customer)
+        customer.move()
+        print(customer)
+        customer.move()
+        print(customer)
+        customer.move()
+        print(customer)
     print(c1.path)
     print(c2.path)
+    print(c3.path)
     print(f'{c1.name} spent {c1.total_time} minutes in the supermarket.')
     print(f'{c2.name} spent {c2.total_time} minutes in the supermarket.')
-    print(f'{c3.name} spent {c2.total_time} minutes in the supermarket.')
+    print(f'{c3.name} spent {c3.total_time} minutes in the supermarket.')
+    print(c1.active, c2.active, c3.active)
 
